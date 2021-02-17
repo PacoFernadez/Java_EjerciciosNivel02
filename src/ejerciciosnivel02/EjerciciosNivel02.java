@@ -31,12 +31,99 @@ public class EjerciciosNivel02 {
             if(contador1 != 1){ //si en algún momento las palabras se diferencian en más de 1 no es escalera
                 return false;
             } 
-        }
-   
-        
+        }  
         return true;
     }
     
+    
+    
+    
+    public int costeErroresADN(String uno, String dos){
+        int contador = 0;
+        
+        for(int i = 0; i < uno.length(); i++){
+            if(uno.charAt(i) == '-' && dos.charAt(i) == '-'){
+                contador = contador + 2;
+            }
+            if(uno.charAt(i) == '-' && dos.charAt(i) != '-'){
+                contador = contador + 2;
+            }
+            if(dos.charAt(i) == '-' && uno.charAt(i) != '-'){
+                contador = contador + 2;
+            }
+            if(uno.charAt(i) == 'A' && dos.charAt(i) != 'T' && dos.charAt(i) != '-'){
+                contador++;
+            }
+            if(uno.charAt(i) == 'T' && dos.charAt(i) != 'A' && dos.charAt(i) != '-'){
+                contador++;
+            }
+            if(uno.charAt(i) == 'C' && dos.charAt(i) != 'G' && dos.charAt(i) != '-'){
+                contador++;
+            }
+            if(uno.charAt(i) == 'G' && dos.charAt(i) != 'C' && dos.charAt(i) != '-'){
+                contador++;
+            }
+        }
+        
+        return contador;
+    }
+    
+    public int costeErroresADN_Jorge(String uno, String dos){
+        int coste = 0;
+        
+        for(int i = 0; i < uno.length(); i++){
+            //letra G
+            if(uno.charAt(i) == 'G'){
+                if(dos.charAt(i) != 'C'){
+                    if(dos.charAt(i) == '-'){
+                        coste = coste + 2;
+                    }
+                    else{
+                        coste++;
+                    }
+                }
+            }
+            //letra C
+            if(uno.charAt(i) == 'C'){
+                if(dos.charAt(i) != 'G'){
+                    if(dos.charAt(i) == '-'){
+                        coste = coste + 2;
+                    }
+                    else{
+                        coste++;
+                    }
+                }
+            }
+            //letra A
+            if(uno.charAt(i) == 'A'){
+                if(dos.charAt(i) != 'T'){
+                    if(dos.charAt(i) == '-'){
+                        coste = coste + 2;
+                    }
+                    else{
+                        coste++;
+                    }
+                }
+            }
+            //letra T
+            if(uno.charAt(i) == 'T'){
+                if(dos.charAt(i) != 'A'){
+                    if(dos.charAt(i) == '-'){
+                        coste = coste + 2;
+                    }
+                    else{
+                        coste++;
+                    }
+                }
+            } 
+            //si es -
+            if(uno.charAt(i) == '-'){
+                coste = coste + 2;
+            }            
+        }
+        
+        return coste;
+    }
     
     /**
      * @param args the command line arguments
@@ -45,7 +132,7 @@ public class EjerciciosNivel02 {
         // TODO code application logic here
         EjerciciosNivel02 ejercicio = new EjerciciosNivel02();
         
-        char[][]listaPalabras = {
+        /*char[][]listaPalabras = {
            {'P', 'A', 'T', 'A'},
            {'R', 'A', 'T', 'O'},
            {'R', 'A', 'T', 'O'},
@@ -55,7 +142,25 @@ public class EjerciciosNivel02 {
            {'M', 'A', 'T', 'O'},
         };
         
-        System.out.println(ejercicio.esEscaleraDePalabras(listaPalabras)); 
+        System.out.println(ejercicio.esEscaleraDePalabras(listaPalabras)); */
+ 
+        System.out.println(ejercicio.costeErroresADN_Jorge("ACGT", "TGCA"));
+        System.out.println("");
+        System.out.println(ejercicio.costeErroresADN_Jorge("A-C-G-T-ACGT", "TTGGCCAATGCA"));
+        System.out.println("");
+        System.out.println(ejercicio.costeErroresADN_Jorge("AAAAAAAA", "TTTATTTT"));
+        System.out.println("");
+        System.out.println(ejercicio.costeErroresADN_Jorge("GATTACA", "CTATT-T"));
+        System.out.println("");
+        System.out.println(ejercicio.costeErroresADN_Jorge("CAT-TAG-ACT", "GTATATCCAAA"));
+        System.out.println("");
+        System.out.println(ejercicio.costeErroresADN_Jorge("--------", "ACGTACGT"));
+        System.out.println("");
+        System.out.println(ejercicio.costeErroresADN_Jorge("TAATAA", "ATTATT"));
+        System.out.println("");
+        System.out.println(ejercicio.costeErroresADN_Jorge("GGGA-GAATATCTGGACT", "CCCTACTTA-AGACCGGT"));
+        System.out.println("");
+        System.out.println(ejercicio.costeErroresADN_Jorge("-ATG", "-TAC"));
     }
     
 }
