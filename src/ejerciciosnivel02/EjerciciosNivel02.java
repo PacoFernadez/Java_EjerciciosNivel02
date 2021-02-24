@@ -10,6 +10,25 @@ package ejerciciosnivel02;
  * @author Paco2
  */
 public class EjerciciosNivel02 {
+    
+    public String quitaAcentos(String cadena){
+        //pájaro
+        //pajaro
+        cadena = cadena.replace('á', 'a');
+        cadena = cadena.replace('é', 'e');
+        cadena = cadena.replace('í', 'i');
+        cadena = cadena.replace('ó', 'o');
+        cadena = cadena.replace('ú', 'u');
+        cadena = cadena.replace('ü', 'u');
+        cadena = cadena.replace('Á', 'A');
+        cadena = cadena.replace('É', 'E');
+        cadena = cadena.replace('Í', 'I');
+        cadena = cadena.replace('Ó', 'O');
+        cadena = cadena.replace('Ú', 'U');
+        cadena = cadena.replace('Ü', 'U');    
+        
+        return cadena;
+    }    
 
     public boolean esEscaleraDePalabras(char[][] listaPalabras){  //si pones listaPalabras.length te da el numero de filas
         int contador1 = 0;
@@ -148,15 +167,21 @@ public class EjerciciosNivel02 {
         return auxiliar1;
     }
     
-    
-    
+        
+
     public int strstr(String str1, String str2){
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+        str1 = quitaAcentos(str1);
+        str2 = quitaAcentos(str2);
+        
         int posicion = -1;
         //suponemos que no hay acentos y que todo es minúsculas
         for(int i = 0; i<str1.length(); i++){
             if(str1.charAt(i) == str2.charAt(0)){
                 posicion = i;
                 int j = 0; //indice para buscar el str2
+                
                 while((j < str2.length() && i < str1.length()) && str1.charAt(i) == str2.charAt(j)){
                     j++;
                     i++;
@@ -165,8 +190,22 @@ public class EjerciciosNivel02 {
                 //la primera, que alguno de los dos length se haya terminado
                 //la segunda, que alguna letra sea distinta
                 
-                if(str1.charAt(i) == str2.charAt(j)){
-                    
+                if(j >= str2.length()){
+                    //si ha salido del while porque ya no tenía más letras el str2, significa
+                    //que el str2 está dentro del str1, y además su posición está guardada
+                    //en posición
+                    return posicion;
+                }
+                
+                if(i >= str1.length()){
+                    //si ha salido del while porque ya no tenía más letras el str1, signfica
+                    //que el str2 no está dentro del str1.
+                    return -1;
+                }
+                
+                if(str1.charAt(i) != str2.charAt(j)){
+                    i = posicion; //para que vuelva a chequear a partir de la siguiente letra
+                    posicion = -1;
                 }
             }
         }
@@ -214,7 +253,12 @@ public class EjerciciosNivel02 {
         System.out.println(ejercicio.findDuplicate(new int[]{4,2,3,4,1}));
         System.out.println(ejercicio.findDuplicate(new int[]{1,1,3,4,1}));*/
         
-        System.out.println(ejercicio.strstr("hola Helios", "el"));
+        /*System.out.println(ejercicio.strstr("hola Helios", "el"));
+        System.out.println(ejercicio.strstr("hola mundo", "mun"));
+        System.out.println(ejercicio.strstr("hola mynmu", "mun"));
+        System.out.println(ejercicio.strstr("hola mmunn", "mun"));
+        System.out.println(ejercicio.strstr("Mun", "Mun"));*/
+        System.out.println(ejercicio.strstr("Mumn", "Mun"));
     }
     
 }
