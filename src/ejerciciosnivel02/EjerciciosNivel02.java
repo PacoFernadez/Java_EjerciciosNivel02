@@ -145,8 +145,6 @@ public class EjerciciosNivel02 {
      * @param listaNumeros
      * @return 
      */
-    // 0 1 2 3 4
-    //[1,3,2,4,4]
     public int findDuplicate(int[] listaNumeros){
         int tortuga = listaNumeros[0];
         int liebre = listaNumeros[0];
@@ -166,9 +164,7 @@ public class EjerciciosNivel02 {
         }
         return auxiliar1;
     }
-    
-        
-
+       
     public int strstr(String str1, String str2){
         str1 = str1.toLowerCase();
         str2 = str2.toLowerCase();
@@ -212,6 +208,38 @@ public class EjerciciosNivel02 {
         return posicion;
     }
     
+    
+    
+    public String calculadoraRPN(String[] entrada){
+        
+        String[] pila = new String[100];
+        int posicionPila = 0;  //Indica el sitio de la pila en el que toca insertar o leer
+        
+        for(int i=0; i < entrada.length; i++){          
+            if(entrada[i] != "+" && entrada[i] != "-" && entrada[i] != "*" && entrada[i] != "/"){
+                //System.out.print(entrada[i] + " ");  //Imprime todo lo que no sean símbolos
+                //es un operando, tengo que meterlo en la pila
+                pila[posicionPila] = entrada[i];
+                posicionPila++;
+            }
+            else{  //es una operación
+                Double operando1 = Double.valueOf(pila[posicionPila - 1]);
+                Double operando2 = Double.valueOf(pila[posicionPila - 2]);
+                if(entrada[i] == "+"){
+                    operando1 = operando1 + operando2;
+                }
+                posicionPila = posicionPila - 2;
+                pila[posicionPila] = String.valueOf(operando1);
+            }
+        }
+        
+        
+        return "";
+    }
+            
+            
+            
+            
     /**
      * @param args the command line arguments
      */
@@ -257,8 +285,10 @@ public class EjerciciosNivel02 {
         System.out.println(ejercicio.strstr("hola mundo", "mun"));
         System.out.println(ejercicio.strstr("hola mynmu", "mun"));
         System.out.println(ejercicio.strstr("hola mmunn", "mun"));
-        System.out.println(ejercicio.strstr("Mun", "Mun"));*/
-        System.out.println(ejercicio.strstr("Mumn", "Mun"));
+        System.out.println(ejercicio.strstr("Mun", "Mun"));
+        System.out.println(ejercicio.strstr("Mumn", "Mun"));*/
+        
+        ejercicio.calculadoraRPN( new String[]{"3", "2", "+", "7", "*", "15", "21", "+", "-"} );
     }
     
 }
