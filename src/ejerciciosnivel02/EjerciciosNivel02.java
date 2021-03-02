@@ -208,37 +208,61 @@ public class EjerciciosNivel02 {
         return posicion;
     }
     
+    public String calculadoraRPN( String [] entrada){
     
-    
-    public String calculadoraRPN(String[] entrada){
+        String [] pila  = new String [100];
+        int posicionPila = 0; //indica el sitio de la pila en el que toca insertar o leer
         
-        String[] pila = new String[100];
-        int posicionPila = 0;  //Indica el sitio de la pila en el que toca insertar o leer
-        
-        for(int i=0; i < entrada.length; i++){          
-            if(entrada[i] != "+" && entrada[i] != "-" && entrada[i] != "*" && entrada[i] != "/"){
-                //System.out.print(entrada[i] + " ");  //Imprime todo lo que no sean símbolos
+        for (int i=0; i< entrada.length; i++){
+            
+            if (entrada[i] != "+" && entrada[i] != "-" &&entrada[i] != "*" &&entrada[i] != "/" ){
+                //System.out.print(entrada[i] + " ");
                 //es un operando, tengo que meterlo en la pila
                 pila[posicionPila] = entrada[i];
                 posicionPila++;
             }
-            else{  //es una operación
-                Double operando1 = Double.valueOf(pila[posicionPila - 1]);
-                Double operando2 = Double.valueOf(pila[posicionPila - 2]);
-                if(entrada[i] == "+"){
-                    operando1 = operando1 + operando2;
+            else{ //es una operación
+                if (posicionPila - 2 >= 0){
+                    Double operando1 = Double.valueOf(pila[posicionPila - 1]);
+                    Double operando2 = Double.valueOf(pila[posicionPila - 2]);
+                    if (entrada[i] == "+"){
+                        operando1 = operando1 + operando2;
+                    }
+                    if (entrada[i] == "*"){
+                        operando1 = operando1 * operando2;
+                    }
+                    if (entrada[i] == "-"){
+                        operando1 = operando1 - operando2;
+                    }
+                    if (entrada[i] == "/"){
+                        if(operando2 == 0){
+                            return "No se puede dividir entre cero, imbécil";
+                        }
+                        else{
+                            operando1 = operando1 / operando2;
+                        }    
+                    }
+                    posicionPila = posicionPila - 2;
+                    pila[posicionPila] = operando1+"";  //guardo el resultado en la casilla correspondiente
+                    posicionPila++;
                 }
-                posicionPila = posicionPila - 2;
-                pila[posicionPila] = String.valueOf(operando1);
+                else{
+                    return "ERROR";
+                }
             }
+            
         }
         
         
-        return "";
-    }
+        
+        
+        return pila[0];
+    }    
             
             
-            
+     
+    
+    
             
     /**
      * @param args the command line arguments
@@ -288,7 +312,7 @@ public class EjerciciosNivel02 {
         System.out.println(ejercicio.strstr("Mun", "Mun"));
         System.out.println(ejercicio.strstr("Mumn", "Mun"));*/
         
-        ejercicio.calculadoraRPN( new String[]{"3", "2", "+", "7", "*", "15", "21", "+", "-"} );
+        ejercicio.calculadoraRPN( new String[]{"4", "2", "/", "5", "*"} );
     }
     
 }
